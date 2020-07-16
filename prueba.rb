@@ -19,11 +19,10 @@ end
 
 hash_resultados = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=10&api_key=TjnnHaVZy702voK5eFhMRidCvsnLLsABPzK7SJRV")
 
+
+def build_web_page (hash_resultados)
+
 images = hash_resultados["photos"]
-
-
-def build_web_page (images)
-
 
 images.each do |i|
     i.each do |k , v|
@@ -36,7 +35,7 @@ images.each do |i|
     end
 end
 
-build_web_page(images)
+build_web_page(hash_resultados)
 
 
 
