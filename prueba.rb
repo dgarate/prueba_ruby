@@ -22,21 +22,22 @@ hash_resultados = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curios
 
 def build_web_page (hash_resultados)
 
-images = hash_resultados["photos"]
-
-images.each do |i|
-    i.each do |k , v|
-    output = "<html>\n<head>\n</head>\n\t<body>\n\t\t<ul>"
-        if k == "img_src"
-            output += "\n\t\t\t<li><img src=\"#{v}\"> </li>\n\t\t</ul>\n\t</body>\n</html>"
-            File.write('index.html', output)
-        end
-        end
+    images = hash_resultados["photos"]
+    
+    photos = []
+    images.select do |x|
+        photos << x["img_src"]
     end
-end
-
-build_web_page(hash_resultados)
-
+    
+    output = "<html>\n<head>\n</head>\n\t<body>\n\t\t<ul>"
+    photos.each do |photo|
+        output += "\n\t\t\t<li><img src=\"#{photo}\"></li>"
+        end
+        output += "\n\t\t</ul>\n\t</body>\n</html>"
+        File.write('index.html', output)
+    end
+    
+    build_web_page(hash_resultados)
 
 
 
